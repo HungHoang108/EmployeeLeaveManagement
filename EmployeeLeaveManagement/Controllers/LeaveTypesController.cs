@@ -16,11 +16,14 @@ namespace EmployeeLeaveManagement.Controllers
     {
         private readonly ILeaveTypeRepository leaveTypeRepository;
         private readonly IMapper mapper;
+        private readonly ILeaveAllowcationRepository leaveAllowcationRepository;
 
-        public LeaveTypesController(ILeaveTypeRepository leaveTypeRepository, IMapper mapper)
+        public LeaveTypesController(ILeaveTypeRepository leaveTypeRepository, IMapper mapper,
+            ILeaveAllowcationRepository leaveAllowcationRepository)
         {
             this.leaveTypeRepository = leaveTypeRepository;
             this.mapper = mapper;
+            this.leaveAllowcationRepository = leaveAllowcationRepository;
         }
 
         // GET: LeaveTypes
@@ -138,6 +141,16 @@ namespace EmployeeLeaveManagement.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await leaveTypeRepository.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateLeave(int id)
+        {
+            //await leaveAllocationRepository.LeaveAllocation(id);
+            //return RedirectToAction(nameof(Index));
+            await leaveAllowcationRepository.LeaveAllocation(id);
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,6 +1,7 @@
 ﻿using EmployeeLeaveManagement.Configuration.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using EmployeeLeaveManagement.Models;
 
 namespace EmployeeLeaveManagement.Data
 {
@@ -20,5 +21,6 @@ namespace EmployeeLeaveManagement.Data
         }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
+        public DbSet<EmployeeLeaveManagement.Models.LeaveAllocationEditVM> LeaveAllocationEditVM { get; set; }
     }
 }

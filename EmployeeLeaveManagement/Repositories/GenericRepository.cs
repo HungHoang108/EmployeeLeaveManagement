@@ -21,6 +21,12 @@ namespace EmployeeLeaveManagement.Repositories
             return entity;
         }
 
+        public async Task AddRangeAsync(List<T> entities)
+        {
+            await context.AddRangeAsync(entities);
+            await context.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(int id)
         {
             var entity = await GetAsync(id);
@@ -39,14 +45,13 @@ namespace EmployeeLeaveManagement.Repositories
             return await context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetAsync(int id)
+        public async Task<T?> GetAsync(int? id)
         {
+            if (id == null)
+            {
+                return null;
+            }
             return await context.Set<T>().FindAsync(id);
-        }
-
-        public Task<T> GetAsync(int? id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task UpdateAsync(T entity)
